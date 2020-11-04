@@ -140,4 +140,14 @@ public class AddressBookJDBCService
 			throw new AddressBookJDBCException("Connection Failed.");
 		}
 	}
+	public List<AddressBookData> getContactsByCityOrState(String city, String state) throws AddressBookJDBCException{
+		String sql="Select * from addressbokk where city=? and state=?";
+		try (Connection connection = this.getConnection()) {
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(sql);
+			return this.getEmployeePayrollListFromResultset(resultSet);
+		} catch (SQLException e) {
+			throw new AddressBookJDBCException("Connection Failed.");
+		}
+	}
 }
