@@ -106,4 +106,38 @@ public class AddressBookJDBCService
 		}
 		return addressBookList;
 	}
+	private List<AddressBookData> getEmployeePayrollListFromResultset(ResultSet resultSet) throws AddressBookJDBCException {
+		List<AddressBookData> addressBookList = new ArrayList<AddressBookData>();
+		try {
+			while (resultSet.next()) {
+				String first_name=resultSet.getString("first_name");
+				String last_name=resultSet.getString("last_name");
+				String address=resultSet.getString("address");
+				String city=resultSet.getString("city");
+				String state=resultSet.getString("state");
+				int zip=resultSet.getInt("zip");
+				long phone_number=resultSet.getLong("phone_number");
+				String email_id=resultSet.getString("email_id");
+				String addressbook_name=resultSet.getString("addressbook_name");
+				String addressbook_type=resultSet.getString("addressbook_type");
+				addressBookList.add(new AddressBookData(first_name, last_name, address, city, state, zip, phone_number, email_id, addressbook_name, addressbook_type));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return addressBookList;
+	}
+		
+	public List<AddressBookData> getAdressBookDataByStartingDate(LocalDate startDate, LocalDate endDate)
+			throws AddressBookJDBCException {
+		String sql = String.format("select * from addressbook where date_added between cast('%s' as date) and cast('%s' as date);",
+				startDate.toString(), endDate.toString());
+		try (Connection connection = this.getConnection()) {
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(sql);
+			return this.getEmployeePayrollListFromResultset(resultSet);
+		} catch (SQLException e) {
+			throw new AddressBookJDBCException("Connection Failed.");
+		}
+	}
 }

@@ -2,6 +2,7 @@ package com.addressbookjdbc;
 
 import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.Assert;
@@ -28,6 +29,19 @@ public class AddressBookJDBCTest
 		addressBookService.updateContactDetails("Kanishk","Karnataka",22100);
 		boolean result=addressBookService.checkAddressBookInSyncWithDB("Kanishk");
 		Assert.assertTrue(result);
+    }
+    //UC18
+    @Test
+    public void givenAddressBookDataInDB_WhenRetrievedForGivenDate_ShouldSyncWithDB() throws AddressBookJDBCException
+    {
+    	List<AddressBookData> addressbookdata;
+    	AddressBookService addressBookService = new AddressBookService();
+		addressbookdata =addressBookService.readAddressBookData();
+		LocalDate startDate = LocalDate.parse("2018-01-31");
+		LocalDate endDate = LocalDate.parse("2019-01-31");
+		List<AddressBookData> matchingRecords = addressBookService
+				.getEmployeePayrollDataByStartDate(startDate, endDate);
+		Assert.assertEquals(matchingRecords.get(0),addressBookService.getAddressBookData("Kanishk"));
     }
 }
 

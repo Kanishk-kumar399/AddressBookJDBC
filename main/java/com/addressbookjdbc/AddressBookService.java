@@ -1,5 +1,6 @@
 package com.addressbookjdbc;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class AddressBookService
@@ -25,7 +26,7 @@ public class AddressBookService
 			addressBookData.setState(state);
 			}
 	}
-	private AddressBookData getAddressBookData(String name) {
+	public AddressBookData getAddressBookData(String name) {
 		return this.addressBookDataList.stream()
 				.filter(addressBookDataListObject->addressBookDataListObject.getFirst_name().equals(name))
 				.findFirst().orElse(null);
@@ -34,5 +35,8 @@ public class AddressBookService
 	public boolean checkAddressBookInSyncWithDB(String name) throws AddressBookJDBCException {
 		List<AddressBookData> addressBookDataList=new AddressBookJDBCService().getAddressBookDataFromDB(name);
 		return addressBookDataList.get(0).equals(getAddressBookData(name));
+	}
+	public List<AddressBookData> getEmployeePayrollDataByStartDate(LocalDate startDate, LocalDate endDate)throws AddressBookJDBCException {
+		return this.addressbookJDBCService.getAdressBookDataByStartingDate(startDate, endDate);
 	}
 }
