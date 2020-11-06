@@ -1,5 +1,7 @@
 package com.addressbookjdbc;
 
+import java.sql.Date;
+
 public class AddressBookData {
 
 	private String first_name;
@@ -12,8 +14,9 @@ public class AddressBookData {
 	private String email_id;
 	private String addressbook_name;
 	private String addressbook_type;
+	private Date date;
 	public AddressBookData(String first_name, String last_name, String address, String city, String state,
-			int zip, long phone_number, String email_id, String addressbook_name, String addressbook_type) {
+			int zip, long phone_number, String email_id,Date date, String addressbook_name, String addressbook_type) {
 		super();
 		this.first_name = first_name;
 		this.last_name = last_name;
@@ -25,6 +28,7 @@ public class AddressBookData {
 		this.email_id = email_id;
 		this.addressbook_name = addressbook_name;
 		this.addressbook_type = addressbook_type;
+		this.date=date;
 	}
 	@Override
 	public String toString() {

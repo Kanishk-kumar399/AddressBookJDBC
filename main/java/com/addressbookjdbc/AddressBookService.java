@@ -39,4 +39,8 @@ public class AddressBookService
 	public List<AddressBookData> getEmployeePayrollDataByStartDate(LocalDate startDate, LocalDate endDate)throws AddressBookJDBCException {
 		return this.addressbookJDBCService.getAdressBookDataByStartingDate(startDate, endDate);
 	}
+
+	public List<AddressBookData> getContactsByCityOrState(String city, String state) throws AddressBookJDBCException {
+		return this.addressbookJDBCService.getContactsByCityOrState(city,state);
+	}
 }
