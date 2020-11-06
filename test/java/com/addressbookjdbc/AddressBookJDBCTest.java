@@ -60,12 +60,14 @@ public class AddressBookJDBCTest
     	AddressBookJDBCService  addressBookJDBCService=new AddressBookJDBCService();
     	AddressBookService addressBookService = new AddressBookService();
     	addressBookJDBCService.addContactEntryToDB("Mauyr","raina","ssd-324","Pune","Maharashtra",
-    			2123,98359834,"kanishk@dsds.com",Date.valueOf("2020-02-30"),"School","Friends");
+    			2123,98359834,"kanishk@dsds.com",Date.valueOf("2020-02-26"),"School","Friends");
     	boolean result=addressBookService.checkAddressBookInSyncWithDB("Suresh");
     	Assert.assertTrue(result);
     }
     //UC21
     @Test
-    public void 
+    public void givenAddressBookMultipleData_ShouldAddToAdddressBook() throws AddressBookJDBCException{
+    	
+    }
 }
 

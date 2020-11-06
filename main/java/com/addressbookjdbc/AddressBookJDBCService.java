@@ -164,7 +164,7 @@ public class AddressBookJDBCService
 			throw new AddressBookJDBCException("Unable to AutoCommit");
 		}
 		try(Statement statement = connection.createStatement()){
-			String sql = String.format("insert into addressbook_details(firstname,lastname,address,city,state,zip,phone_number,date_added) " +
+			String sql = String.format("insert into addressbook_details " +
 					" values ('%s', '%s', '%s', '%s', '%s', '%s', %s, %s, '%s')", emailId, firstName, lastName, address, city, state, zip,  phoneNumber, dateAdded);
 			statement.executeUpdate(sql);
 			} catch (SQLException e) {
@@ -176,14 +176,14 @@ public class AddressBookJDBCService
 			throw new AddressBookJDBCException("Unable to get data.Please check table for updation");
 		}
 		try(Statement statement = connection.createStatement()){
-			String sql = String.format("insert into address_name " + 
+			String sql = String.format("insert into address_details_andbookname " + 
 					"values ('%s', '%s')", emailId, addressBookName);
 			statement.executeUpdate(sql);
 		} catch(SQLException e) {
 			try {
 				connection.rollback();
 			} catch (SQLException e1) {
-				throw new AddressBookJDBCException("Unable to Roll Back in AddressBook_name");
+				throw new AddressBookJDBCException("Unable to Roll Back in addressbook_name");
 			}
 			throw new AddressBookJDBCException("Unable to get data.Please check table for updation in address_name");
 		}
