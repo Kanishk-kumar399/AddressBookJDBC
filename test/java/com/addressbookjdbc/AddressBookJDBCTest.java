@@ -3,7 +3,9 @@ package com.addressbookjdbc;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Date;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Assert;
@@ -60,14 +62,25 @@ public class AddressBookJDBCTest
     	AddressBookJDBCService  addressBookJDBCService=new AddressBookJDBCService();
     	AddressBookService addressBookService = new AddressBookService();
     	addressBookJDBCService.addContactEntryToDB("Mauyr","raina","ssd-324","Pune","Maharashtra",
-    			2123,98359834,"kanishk@dsds.com",Date.valueOf("2020-02-26"),"School","Friends");
+    			2123,98359834,"kanishk@dsds.com","School","Friends",Date.valueOf("2020-02-26"));
     	boolean result=addressBookService.checkAddressBookInSyncWithDB("Suresh");
     	Assert.assertTrue(result);
     }
     //UC21
     @Test
     public void givenAddressBookMultipleData_ShouldAddToAdddressBook() throws AddressBookJDBCException{
-    	
+    	AddressBookData[] arrayOfDetails= {
+    			new AddressBookData("Saurabh","saxena","yty-324","Pune","Maharashtra",
+    	    			2123,98359834,"kanishk@dsds.com","School","Friends",Date.valueOf("2020-02-26")),
+    			new AddressBookData("Dighas","rasfsna","rtrd-454","Pune","Maharashtra",
+    	    			2123,98359834,"sdfdhk@dsds.com","School","Friends",Date.valueOf("2020-03-26"))};
+    	AddressBookJDBCService addressBookJDBCService=new AddressBookJDBCService();
+    	addressBookJDBCService.readData();
+    	Instant startThread=Instant.now();
+    	addressBookJDBCService.addContactToDBWithThreads(Arrays.asList(arrayOfDetails));
+    	Instant endThread=Instant.now();
+    	System.out.println("Duration With Thread:"+java.time.Duration.between(startThread, endThread));
+    	Assert.assertEquals(10,addressBookJDBCService.countEntries());
     }
 }
 

@@ -16,7 +16,7 @@ public class AddressBookData {
 	private String addressbook_type;
 	private Date date;
 	public AddressBookData(String first_name, String last_name, String address, String city, String state,
-			int zip, long phone_number, String email_id,Date date, String addressbook_name, String addressbook_type) {
+			int zip, long phone_number, String email_id, String addressbook_name, String addressbook_type,Date date) {
 		super();
 		this.first_name = first_name;
 		this.last_name = last_name;
@@ -29,6 +29,12 @@ public class AddressBookData {
 		this.addressbook_name = addressbook_name;
 		this.addressbook_type = addressbook_type;
 		this.date=date;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	@Override
 	public String toString() {
